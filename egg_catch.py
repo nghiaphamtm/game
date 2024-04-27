@@ -1,4 +1,3 @@
-from itertools import cycle
 from random import randrange
 from tkinter import Canvas, Tk, messagebox, font
 
@@ -31,9 +30,6 @@ catcher = c.create_arc(catcher_startx, catcher_starty, catcher_startx2, catcher_
 game_font = font.nametofont("TkFixedFont")
 game_font.config(size=18)
 
-
-score = 0
-score_text = c.create_text(10, 10, anchor="nw", font=game_font, fill="darkblue", text="Score: "+ str(score))
 
 lives_remaining = 3
 lives_text = c.create_text(canvas_width-10, 10, anchor="ne", font=game_font, fill="darkblue", text="Lives: "+ str(lives_remaining))
@@ -85,10 +81,12 @@ def increase_score(points):
     egg_interval = int(egg_interval * difficulty)
     c.itemconfigure(score_text, text="Score: "+ str(score))
 
-def move_left(event):
-    (x1, y1, x2, y2) = c.coords(catcher)
-    if x1 > 0:
-        c.move(catcher, -20, 0)
+def increase_score(points):
+    global score, egg_speed, egg_interval
+    score += points
+    egg_speed = int(egg_speed * difficulty)
+    egg_interval = int(egg_interval * difficulty)
+    c.itemconfigure(score_text, text="Score: "+ str(score))
 
 def move_right(event):
     (x1, y1, x2, y2) = c.coords(catcher)
